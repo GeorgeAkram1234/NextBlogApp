@@ -56,17 +56,25 @@ export default function PostCard({ post, isFeatured, isVertical, imageSrc, isHor
 
   if (isVertical) {
     return (
-      <motion.article ref={ref} {...cardMotion} className="bg-transparent bg-card overflow-hidden flex flex-row">
-        <div className="w-1/2">
-          <img src={imageSrc || "/recents/RecentBlogVerticalOne.svg"} alt="recent" className="w-full" />
+      <motion.article
+        ref={ref}
+        {...cardMotion}
+        className="bg-transparent bg-card overflow-hidden flex flex-col md:flex-row"
+      >
+        <div className="w-full md:w-1/2 flex-shrink-0">
+          <img
+            src={imageSrc || "/recents/RecentBlogVerticalOne.svg"}
+            alt="recent"
+            className="w-full h-48 md:h-full object-cover"
+          />
         </div>
-        <div className="w-1/2 p-6 flex flex-col ">
-          <p className="text-sm text-[#6941C6] dark:text-b mb-2"><span>Lana Steiner</span> • <span>1 Jan 2023</span></p>
+        <div className="w-full md:w-1/2 p-6 flex flex-col justify-center">
+          <p className="text-sm text-[#6941C6] dark:text-b mb-2">
+            <span>Lana Steiner</span> • <span>1 Jan 2023</span>
+          </p>
           <Link href={`/posts/${post.id}`} className="block group">
             <div className="flex items-center justify-between mb-2">
-              <h3 className="text-lg font-semibold text-main">
-                {post.title}
-              </h3>
+              <h3 className="text-lg font-semibold text-main">{post.title}</h3>
               <span><ArrowIcon /></span>
             </div>
           </Link>
