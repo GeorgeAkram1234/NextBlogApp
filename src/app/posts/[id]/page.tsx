@@ -51,7 +51,7 @@ export default function PostDetailsPage() {
 
   return (
     <main className="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-      {/* Back Button */}
+      {/* Back Button */} 
       <button
         onClick={() => window.history.back()}
         className="mb-6 flex items-center px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white transition-all duration-200"
