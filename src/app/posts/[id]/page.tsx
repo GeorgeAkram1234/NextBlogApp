@@ -54,7 +54,7 @@ export default function PostDetailsPage() {
       {/* Back Button */}
       <button
         onClick={() => window.history.back()}
-        className="mb-6 flex items-center text-black dark:text-white hover:text-gray-900 dark:hover:text-gray-200 transition-colors duration-200"
+        className="mb-6 flex items-center px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white transition-all duration-200"
       >
         <svg 
           className="w-5 h-5 mr-2" 
