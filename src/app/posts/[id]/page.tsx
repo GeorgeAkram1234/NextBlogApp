@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { allPostsImages, recentPostsImages } from "../../imageMaps";
+import { allPostsImages } from "../../imageMaps";
 import Loader from "@/components/Loader";
 import { ErrorDisplay } from "@/components/ErrorHandling";
 
@@ -35,15 +35,13 @@ export default function PostDetailsPage() {
     if (id) fetchPost();
   }, [id]);
 
-  // Map id to imageSrc using both arrays
+  // Map id to imageSrc using allPostsImages only
   let imageSrc: string | undefined = undefined;
   const date = "Sunday , 1 Jan 2023";
   if (id && typeof id === "string") {
     const postId = parseInt(id, 10);
-    if (postId >= 1 && postId <= 4) {
-      imageSrc = recentPostsImages[postId - 1];
-    } else if (postId >= 5 && postId <= 10) {
-      imageSrc = allPostsImages[postId - 5];
+    if (postId >= 1 && postId <= 10) {
+      imageSrc = allPostsImages[(postId - 1) % allPostsImages.length];
     }
   }
 
