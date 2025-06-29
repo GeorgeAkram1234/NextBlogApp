@@ -1,14 +1,21 @@
 "use client";
 import { useEffect, useState } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { allPostsImages, recentPostsImages } from "../../imageMaps";
 import Loader from "@/components/Loader";
 import { ErrorDisplay } from "@/components/ErrorHandling";
 
+// Define a type for your post
+interface Post {
+  id: number;
+  title: string;
+  body: string;
+  // Add other fields as needed
+}
+
 export default function PostDetailsPage() {
   const { id } = useParams();
-  const router = useRouter();
-  const [post, setPost] = useState<any>(null);
+  const [post, setPost] = useState<Post | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -17,10 +24,10 @@ export default function PostDetailsPage() {
       try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/${id}`);
         if (!res.ok) throw new Error("Failed to fetch post");
-        const data = await res.json();
+        const data: Post = await res.json();
         setPost(data);
-      } catch (e: any) {
-        setError(e.message);
+      } catch (e: unknown) {
+        if (e instanceof Error) setError(e.message);
       } finally {
         setLoading(false);
       }
@@ -30,8 +37,7 @@ export default function PostDetailsPage() {
 
   // Map id to imageSrc using both arrays
   let imageSrc: string | undefined = undefined;
-  let author = "Olivia Rhye";
-  let date = "Sunday , 1 Jan 2023";
+  const date = "Sunday , 1 Jan 2023";
   if (id && typeof id === "string") {
     const postId = parseInt(id, 10);
     if (postId >= 1 && postId <= 4) {
@@ -41,10 +47,6 @@ export default function PostDetailsPage() {
     }
   }
 
-  const handleBackToPosts = () => {
-    router.push('/');
-  };
-
   if (loading) return <div className="text-center p-8"><Loader/></div>;
   if (error) return <ErrorDisplay message={error} />;
   if (!post) return <div className="text-center p-8">Post not found.</div>;
@@ -53,8 +55,8 @@ export default function PostDetailsPage() {
     <main className="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
       {/* Back Button */}
       <button
-        onClick={handleBackToPosts}
-        className="cursor-pointer mb-6 flex items-center text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors duration-200"
+        onClick={() => window.history.back()}
+        className="mb-6 flex items-center text-black dark:text-white hover:text-gray-900 dark:hover:text-gray-200 transition-colors duration-200"
       >
         <svg 
           className="w-5 h-5 mr-2" 
