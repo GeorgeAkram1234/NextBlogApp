@@ -37,7 +37,7 @@ export default function Header() {
       </div>
       {/* Mobile Menu Overlay */}
       {menuOpen && (
-        <div className="fixed inset-0 z-50 bg-white dark:bg-black flex flex-col items-center justify-center">
+        <div className="fixed inset-0 z-50 bg-white dark:bg-white flex flex-col items-center justify-center">
           <div className="flex-1 flex flex-col items-center justify-center w-full">
             <div className="font-semibold  text-lg mb-8">George Akram</div>
             <nav>

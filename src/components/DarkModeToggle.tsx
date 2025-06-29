@@ -11,6 +11,7 @@ export default function DarkModeToggle() {
     const savedTheme = localStorage.getItem('theme');
     const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
     
+    
     if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
       setDark(true);
       document.documentElement.classList.add("dark");
