@@ -3,15 +3,13 @@ import { useEffect, useState, useRef } from "react";
 import PostCard, { Post } from "@/components/PostCard";
 import PaginationFooter from "@/components/PaginationFooter";
 import Loader from "@/components/Loader";
-import { allPostsImages, recentPostsImages } from "./imageMaps";
+import { allPostsImages } from "./imageMaps";
 import { ErrorDisplay } from "@/components/ErrorHandling";
-
 
 function RecentPosts({ posts }: { posts: Post[] }) {
   const featuredPost = posts[0];
   const verticalPosts = posts.slice(1, 3);
   const bottomFeaturedPost = posts[3];
-
 
   return (
     <section className="mb-16">
@@ -30,13 +28,11 @@ function RecentPosts({ posts }: { posts: Post[] }) {
         </div>
       </div>
       <div className="w-full my-6 flex-shrink-0">{bottomFeaturedPost && <PostCard post={bottomFeaturedPost} imageSrc="/recents/bottomRecent.svg" isHorizontal />}</div>
-
     </section>
   );
 }
 
 function AllPosts({ posts }: { posts: Post[] }) {
-
   return (
     <section className="mb-16">
       <h2 className="text-3xl font-bold mb-8 text-main">All blog posts</h2>
@@ -53,8 +49,6 @@ function AllPosts({ posts }: { posts: Post[] }) {
   );
 }
 
-
-
 export default function PostsPage() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -69,10 +63,10 @@ export default function PostsPage() {
       setError(null);
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts`);
       if (!res.ok) throw new Error("Failed to fetch posts");
-      const data = await res.json();
+      const data: Post[] = await res.json();
       setPosts(data);
-    } catch (error: any) {
-      setError(error.message);
+    } catch (error: unknown) {
+      if (error instanceof Error) setError(error.message);
     } finally {
       setLoading(false);
     }
