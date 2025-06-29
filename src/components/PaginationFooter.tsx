@@ -47,7 +47,7 @@ export default function PaginationFooter({ current, total, onPageChange }: Pagin
                   className={`cursor-pointer disabled:cursor-not-allowed w-8 h-8 flex items-center justify-center rounded-xl transition text-base font-medium
                     ${current === page
                       ? "bg-purple-50 text-purple-700 transition-all duration-300"
-                      : "hover:bg-gray-500 hover:dark:bg-white hover:dark:text-blue-500 transition-all duration-300 dark:text-black dark:text-white"}
+                      : "hover:bg-gray-500 hover:dark:bg-white hover:dark:text-black transition-all duration-300"}
                   `}
                   onClick={() => onPageChange && onPageChange(page)}
                   aria-current={current === page ? "page" : undefined}
