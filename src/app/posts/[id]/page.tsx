@@ -35,13 +35,25 @@ export default function PostDetailsPage() {
     if (id) fetchPost();
   }, [id]);
 
-  // Map id to imageSrc using allPostsImages only
+  // Map id to imageSrc using the same logic as the main page
   let imageSrc: string | undefined = undefined;
   const date = "Sunday , 1 Jan 2023";
   if (id && typeof id === "string") {
     const postId = parseInt(id, 10);
-    if (postId >= 1 && postId <= 10) {
-      imageSrc = allPostsImages[(postId - 1) % allPostsImages.length];
+    // For posts 1-4 (recent posts), use recent post images
+    if (postId >= 1 && postId <= 4) {
+      const recentImages = [
+        "/recents/RecentBlogLeft.svg",
+        "/recents/RecentBlogVerticalOne.svg", 
+        "/recents/RecentBlogVerticalTwo.svg",
+        "/recents/bottomRecent.svg"
+      ];
+      imageSrc = recentImages[postId - 1];
+    }
+    // For posts 5+ (all posts), use allPostsImages with the same index mapping as main page
+    else if (postId >= 5) {
+      const allPostsIndex = postId - 5; // Adjust to match the main page logic
+      imageSrc = allPostsImages[allPostsIndex % allPostsImages.length];
     }
   }
 
